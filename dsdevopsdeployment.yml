@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dsdevops
+spec:
+  selector:
+    matchLabels:
+      run: dsdevops
+      vpc.amazonaws.com/PrivateIPv4Address: ipv4
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: dsdevops
+        vpc.amazonaws.com/PrivateIPv4Address: ipv4
+    spec:
+      containers:
+      - name: dsdevops
+        image: 754506046197.dkr.ecr.us-east-1.amazonaws.com/dsdevops-images:v1
+        env:
+        - name: AWS_DEFAULT_REGION
+          value: "us-east-1"
+        - name: ENVIRONMENT
+          value: Test
+      terminationGracePeriodSeconds: 1200
+      nodeSelector:
+        alpha.eksctl.io/nodegroup-name: Test-DSDevops-NG
+        kubernetes.io/os: linux

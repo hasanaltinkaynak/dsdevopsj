@@ -1,0 +1,21 @@
+#prepare the eks cluster config file
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: dsdevops-cluster
+  region: us-east-1
+  version: "1.21"
+#create one node group for k8s cluster
+nodeGroups:
+  - name: Test-DSDevops-NG
+    instanceType: t2.medium
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 2
+    ssh:
+      publicKeyName: myawskey
+      
+
+
+
+
